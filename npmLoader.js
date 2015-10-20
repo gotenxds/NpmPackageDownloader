@@ -86,7 +86,7 @@ module.exports = {
         });
 
         return download
-            .dest(downloadDir + name)
+            .dest(downloadDir + '\\' + name)
             .runAsync();
     }
 };
