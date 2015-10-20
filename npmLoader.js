@@ -6,7 +6,8 @@ let Promise = require('bluebird'),
     _ = require('lodash'),
     Download = require('download'),
     util = require('util'),
-    winston = require('winston');
+    winston = require('winston'),
+    validUrl = require('valid-url');
 
 
 let client = Promise.promisifyAll(new Client(), {promisifier: noErrorPromisifier});
@@ -80,7 +81,7 @@ module.exports = {
         let download = Promise.promisifyAll(new Download());
 
         versions.forEach(version => {
-            let url = util.format("https://registry.npmjs.org/%s/-/%s-%s.tgz", name, name, version);
+            let url = buildUrl(name, version);
             winston.info('Downloading ', url);
             download.get(url);
         });
@@ -90,3 +91,11 @@ module.exports = {
             .runAsync();
     }
 };
+
+function buildUrl(name, version){
+    if (validUrl.isUri(version)){
+        return version;
+    }
+
+    return util.format("https://registry.npmjs.org/%s/-/%s-%s.tgz", name, name, version);
+}

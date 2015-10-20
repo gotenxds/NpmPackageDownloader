@@ -5,7 +5,8 @@ let winston = require('winston'),
     npm = require('./npmLoader.js'),
     Promise = require('bluebird'),
     semver = require('semver'),
-    Zip = require('node-7z');
+    Zip = require('node-7z'),
+    validUrl = require('valid-url');
 
 program
     .version('0.0.1')
@@ -121,7 +122,7 @@ function addLatestSatisfyingVersionOf(packageName, ver) {
     return npm.getVersionsOf(packageName)
         .spread((name, versions) => {
             let npmPackage = _.find(npmPackages, {name: packageName});
-            let latestSatisfyingVersion = semver.maxSatisfying(versions, ver == 'latest' ? ">0" : ver);
+            let latestSatisfyingVersion = getLatestSatisfyingVersion(versions, ver);
 
             if (!npmPackage) {
                 addNewPackage(packageName, latestSatisfyingVersion);
@@ -135,6 +136,16 @@ function addLatestSatisfyingVersionOf(packageName, ver) {
                 }
             }
         })
+}
+function getLatestSatisfyingVersion(versions, ver) {
+    if (validUrl.isUri(ver)){
+        return ver;
+    }
+
+    return semver.maxSatisfying(versions, parseVersion(ver));
+}
+function parseVersion(ver) {
+    return ver == 'latest' ? ">0" : ver;
 }
 
 function addNewPackage(npmPackage, latestSatisfyingVersion) {

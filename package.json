@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "npmDownloader": "index.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/gotenxds/NpmPackageDownloader.git"
@@ -25,6 +28,7 @@
     "node-rest-client": "^1.5.1",
     "npm": "^3.3.8",
     "semver": "^5.0.3",
+    "valid-url": "^1.0.9",
     "winston": "^1.1.1"
   }
 }
