@@ -1,5 +1,5 @@
 "use strict";
-var winston = require('winston'),
+let winston = require('winston'),
     program = require('commander'),
     _ = require('lodash'),
     npm = require('./npmLoader.js'),

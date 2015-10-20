@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('bluebird'),
+let Promise = require('bluebird'),
     noErrorPromisifier = require('./NoErrorPromisifier.js'),
     Client = require('node-rest-client').Client,
     _ = require('lodash'),
@@ -9,7 +9,7 @@ var Promise = require('bluebird'),
     winston = require('winston');
 
 
-var client = Promise.promisifyAll(new Client(), {promisifier: noErrorPromisifier});
+let client = Promise.promisifyAll(new Client(), {promisifier: noErrorPromisifier});
 
 module.exports = {
     getVersionsOf: function (name) {
