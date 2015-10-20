@@ -76,7 +76,7 @@ module.exports = {
         })
     },
 
-    downloadTarBallOf: function (name, versions) {
+    downloadTarBallOf: function (name, versions, downloadDir) {
         let download = Promise.promisifyAll(new Download());
 
         versions.forEach(version => {
@@ -86,7 +86,7 @@ module.exports = {
         });
 
         return download
-            .dest("c:\\Temp\\test\\" + name)
+            .dest(downloadDir + name)
             .runAsync();
     }
 };

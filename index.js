@@ -113,7 +113,7 @@ function addLatestSatisfyingVersionOf(packageName, ver) {
                     npmPackage.versions.add(latestSatisfyingVersion);
 
                     if (npmPackage.downloaded) {
-                        npm.downloadTarBallOf(npmPackage.name, [latestSatisfyingVersion])
+                        npm.downloadTarBallOf(npmPackage.name, [latestSatisfyingVersion], program.output)
                     }
                 }
             }
@@ -144,7 +144,7 @@ function addAllVersions(name) {
 function downloadTarBall(name) {
     let npmPackage = _.find(npmPackages, {name: name});
 
-    return npm.downloadTarBallOf(name, npmPackage.versions)
+    return npm.downloadTarBallOf(name, npmPackage.versions, program.output)
         .catch((e) => {
             winston.error(`${e.message} \n Was unable to download ${e.path}`);
         })
