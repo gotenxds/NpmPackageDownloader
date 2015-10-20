@@ -4,15 +4,17 @@ let winston = require('winston'),
     _ = require('lodash'),
     npm = require('./npmLoader.js'),
     Promise = require('bluebird'),
-    semver = require('semver');
+    semver = require('semver'),
+    Zip = require('node-7z');
 
 program
     .version('0.0.1')
-    .option('-p, --packages [packages]', 'A list of space seperated [packages]')
-    .option('-d, --dependencies', 'Download dependencies')
-    .option('-e, --devDependencies', 'Download dev dependencies')
-    .option('-a, --allVersions', 'Download all versions of each package')
-    .option('-o, --output [directory]', 'The output [directory]')
+    .option('-p, --packages [packages]', 'A list of space seperated [packages].')
+    .option('-d, --dependencies', 'Download dependencies.')
+    .option('-e, --devDependencies', 'Download dev dependencies.')
+    .option('-a, --allVersions', 'Download all versions of each package.')
+    .option('-o, --output [directory]', 'The output [directory].')
+    .option('-7, --zipIt', '7Zips the downloaded files.')
     .parse(process.argv);
 
 winston.info("Welcome to npm package downloader.");
@@ -43,17 +45,32 @@ function nextPackage() {
         downloadPackage(nextPackage.name);
     } else {
         winston.info("Finished downloading.");
-        winston.info("GoodBye.");
-        process.exit();
+
+        if (program.zipIt) {
+            winston.info('7Ziping your files, Please wait...');
+
+            let zip = new Zip();
+
+            zip.add(program.output + '\\npm-personalNumber.7z', program.output)
+                .then(() => winston.info(`Finished ziping!\n7Zip is wating for you in ${program.output}`))
+                .then(close);
+        } else {
+            close()
+        }
     }
 }
 
+function close() {
+    winston.info("GoodBye.");
+    process.exit();
+}
+
 function downloadPackage(name) {
-        addVersionsFor(name)
-            .then(() => downloadTarBall(name))
-            .then(() => addDependencies(name))
-            .then(() => addDevDependencies(name))
-            .then(nextPackage)
+    addVersionsFor(name)
+        .then(() => downloadTarBall(name))
+        .then(() => addDependencies(name))
+        .then(() => addDevDependencies(name))
+        .then(nextPackage)
 }
 
 function addVersionsFor(name) {
@@ -64,7 +81,7 @@ function addVersionsFor(name) {
         let npmPackage = _.find(npmPackages, {name: name});
 
         return npm.getLatestVersionOf(name)
-                .then(version => npmPackage.versions.add(version));
+            .then(version => npmPackage.versions.add(version));
     }
 }
 
