@@ -104,7 +104,7 @@ function addLatestSatisfyingVersionOf(packageName, ver) {
     return npm.getVersionsOf(packageName)
         .spread((name, versions) => {
             let npmPackage = _.find(npmPackages, {name: packageName});
-            let latestSatisfyingVersion = semver.maxSatisfying(versions, ver);
+            let latestSatisfyingVersion = semver.maxSatisfying(versions, ver == 'latest' ? ">0" : ver);
 
             if (!npmPackage) {
                 addNewPackage(packageName, latestSatisfyingVersion);
@@ -120,12 +120,12 @@ function addLatestSatisfyingVersionOf(packageName, ver) {
         })
 }
 
-function packageContainsSatisfyingVersion(npmPackage, ver) {
-    return semver.maxSatisfying(Array.from(npmPackage.versions), ver);
-}
-
 function addNewPackage(npmPackage, latestSatisfyingVersion) {
     npmPackages.push({name: npmPackage, versions: new Set([latestSatisfyingVersion]), downloaded: false});
+}
+
+function packageContainsSatisfyingVersion(npmPackage, ver) {
+    return semver.maxSatisfying(Array.from(npmPackage.versions), ver);
 }
 
 function addAllVersions(name) {
