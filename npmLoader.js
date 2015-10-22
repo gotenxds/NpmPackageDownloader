@@ -5,6 +5,7 @@ let Promise = require('bluebird'),
     Client = require('node-rest-client').Client,
     _ = require('lodash'),
     Download = require('download'),
+    downloadStatus = require('download-status'),
     util = require('util'),
     winston = require('winston'),
     validUrl = require('valid-url');
@@ -87,6 +88,7 @@ module.exports = {
         });
 
         return download
+            .use(downloadStatus())
             .dest(downloadDir + '\\' + name)
             .runAsync();
     }
