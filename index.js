@@ -178,7 +178,7 @@ function downloadTarBall(name) {
 
     return npm.downloadTarBallOf(name, npmPackage.versions, program.output)
         .catch((e) => {
-            winston.error(`${e.message} \n Was unable to download ${e.path}`);
+            winston.error(`${e.message} \n Was unable to download ${name}`);
         })
         .finally(() => {
             winston.info(`Finished downloading ${name}.`);
