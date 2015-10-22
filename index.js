@@ -19,6 +19,7 @@ program
     .option('-7, --zipIt', '7Zips the downloaded files.')
     .parse(process.argv);
 
+winston.cli();
 winston.info("Welcome to npm package downloader.");
 
 if (!program.packages) {
