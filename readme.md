@@ -14,7 +14,7 @@ $ npm install -g npm-package-downloader
 
 The package allows you to download any number of packages, their dependencies, dev-dependencies and offers verity of options, you can view them all using: 
 ```
-$ npmDownloader -h
+$ npmDownload -h
     
     -p, --packages [packages]  A list of space separated [packages].
     -d, --dependencies         Download dependencies.
@@ -26,11 +26,11 @@ $ npmDownloader -h
 
 For example to download the latest versions of `bower`, `grunt` and their dependencies just type:
 ```
-$ npmDownloader -p "bower grunt" -d -o C:\myStorage
+$ npmDownload -p "bower grunt" -d -o C:\myStorage
 ```
 Or using full option notation:
 ```
-$ npmDownloader --packages "bower grunt" --dependencies --output C:\myStorage
+$ npmDownload --packages "bower grunt" --dependencies --output C:\myStorage
 ```
 
 ### Dependencies
