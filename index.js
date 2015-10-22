@@ -139,6 +139,9 @@ function addLatestSatisfyingVersionOf(packageName, ver) {
 }
 function getLatestSatisfyingVersion(versions, ver) {
     if (validUrl.isUri(ver)){
+        if (ver.startsWith("git:")){
+            return ver.replace("git:", "https:").replace(".git", "/archive/master.zip");
+        }
         return ver;
     }
 
