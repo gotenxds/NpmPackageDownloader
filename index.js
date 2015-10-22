@@ -6,11 +6,12 @@ let winston = require('winston'),
     Promise = require('bluebird'),
     semver = require('semver'),
     Zip = require('node-7z'),
-    validUrl = require('valid-url');
+    validUrl = require('valid-url'),
+    packages = require('./coercions/packagesCoercion');
 
 program
     .version('0.1.0')
-    .option('-p, --packages [packages]', 'A list of space seperated [packages].')
+    .option('-p, --packages [packages]', 'A list of space seperated [packages].', packages)
     .option('-d, --dependencies', 'Download dependencies.')
     .option('-e, --devDependencies', 'Download dev dependencies.')
     .option('-a, --allVersions', 'Download all versions of each package.')
@@ -32,12 +33,8 @@ if (!program.output) {
 
 winston.info("Downloading -> " + program.packages);
 
-let npmPackages = [];
+let npmPackages = program.packages;
 let packagesIterator = npmPackages[Symbol.iterator]();
-
-program.packages.split(' ').forEach(name => {
-    npmPackages.push({name: name, downloaded: false, versions: new Set()});
-});
 
 function nextPackage() {
     let nextPackage = packagesIterator.next().value;

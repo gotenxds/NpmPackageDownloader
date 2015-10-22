@@ -26,11 +26,11 @@ $ npmDownload -h
 
 For example to download the latest versions of `bower`, `grunt` and their dependencies just type:
 ```
-$ npmDownload -p "bower grunt" -d -o C:\myStorage
+$ npmDownload -p "bower@1.0.0 grunt" -d -o C:\myStorage
 ```
 Or using full option notation:
 ```
-$ npmDownload --packages "bower grunt" --dependencies --output C:\myStorage
+$ npmDownload --packages "bower@1.0.0 grunt" --dependencies --output C:\myStorage
 ```
 
 ### Dependencies
