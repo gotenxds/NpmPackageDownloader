@@ -2,7 +2,7 @@
 let winston = require('winston'),
     program = require('commander'),
     _ = require('lodash'),
-    npm = require('./npmLoader.js'),
+    npm = require('./npmApi.js'),
     Promise = require('bluebird'),
     semver = require('semver'),
     Zip = require('node-7z'),
