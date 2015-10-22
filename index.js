@@ -147,8 +147,9 @@ function getLatestSatisfyingVersion(versions, ver) {
 
     return semver.maxSatisfying(versions, parseVersion(ver));
 }
+
 function parseVersion(ver) {
-    return ver == 'latest' ? ">0" : ver;
+    return ver == 'latest' ? ">0.0.0" : ver;
 }
 
 function addNewPackage(npmPackage, latestSatisfyingVersion) {
