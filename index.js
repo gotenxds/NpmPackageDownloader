@@ -21,12 +21,12 @@ program
 winston.info("Welcome to npm package downloader.");
 
 if (!program.packages) {
-    winston.error("No npmPackage where given!");
+    winston.error("No npmPackage were given!");
     process.exit();
 }
 
 if (!program.output) {
-    winston.error("No output directory was given!");
+    winston.error("No output directory were given!");
     process.exit();
 }
 
