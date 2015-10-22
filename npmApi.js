@@ -99,7 +99,7 @@ function buildUrl(name, version) {
 }
 
 function getJson(url) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         got(url, {json: true})
             .then(data => resolve(data.body))
             .catch((err) => {
