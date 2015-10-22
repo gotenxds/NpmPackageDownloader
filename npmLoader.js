@@ -79,7 +79,7 @@ module.exports = {
     },
 
     downloadTarBallOf: function (name, versions, downloadDir) {
-        let download = Promise.promisifyAll(new Download());
+        let download = Promise.promisifyAll(new Download({retries: 10}));
 
         versions.forEach(version => {
             let url = buildUrl(name, version);
