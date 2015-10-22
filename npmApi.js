@@ -90,17 +90,21 @@ module.exports = {
     }
 };
 
-function buildUrl(name, version){
-    if (validUrl.isUri(version)){
+function buildUrl(name, version) {
+    if (validUrl.isUri(version)) {
         return version;
     }
 
     return util.format("https://registry.npmjs.org/%s/-/%s-%s.tgz", name, name, version);
 }
 
-function getJson(url){
-    return new Promise(resolve => {
-        got(url, {json:true, retries: 10})
-        .then(data => resolve(data.body));
+function getJson(url) {
+    return new Promise((resolve, reject) => {
+        got(url, {json: true})
+            .then(data => resolve(data.body))
+            .catch((err) => {
+                winston.error(`${err.toString()} : ${err.host + err.path} -> Was unable to find package: ${err.path.slice(1)}` );
+                resolve({});
+            });
     })
 }
