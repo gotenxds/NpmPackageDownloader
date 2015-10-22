@@ -1,6 +1,6 @@
 {
   "name": "npm-package-downloader",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "npmDownloader": "index.js"
+    "npmDownloader": "bin/cmd.js"
   },
   "repository": {
     "type": "git",
