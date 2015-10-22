@@ -1,7 +1,6 @@
 'use strict';
 
 let Promise = require('bluebird'),
-    noErrorPromisifier = require('./NoErrorPromisifier.js'),
     _ = require('lodash'),
     Download = require('download'),
     downloadStatus = require('download-status'),
