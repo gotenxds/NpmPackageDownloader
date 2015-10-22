@@ -2,21 +2,18 @@
 
 let Promise = require('bluebird'),
     noErrorPromisifier = require('./NoErrorPromisifier.js'),
-    Client = require('node-rest-client').Client,
     _ = require('lodash'),
     Download = require('download'),
     downloadStatus = require('download-status'),
     util = require('util'),
     winston = require('winston'),
-    validUrl = require('valid-url');
-
-
-let client = Promise.promisifyAll(new Client(), {promisifier: noErrorPromisifier});
+    validUrl = require('valid-url'),
+    got = require('got');
 
 module.exports = {
     getVersionsOf: function (name) {
         return new Promise(resolve => {
-            client.getAsync('http://registry.npmjs.org/' + name)
+            getJson('http://registry.npmjs.org/' + name)
                 .then(data => {
                     resolve([name, _.keys(data.versions)]);
                 });
@@ -28,7 +25,7 @@ module.exports = {
             return this.getDependenciesOfLatest(npmPackage);
         } else {
             return new Promise(resolve => {
-                client.getAsync(`http://registry.npmjs.org/${npmPackage.name}`)
+                getJson(`http://registry.npmjs.org/${npmPackage.name}`)
                     .then(data => {
                         resolve(data.versions[npmPackage.version].dependencies);
                     })
@@ -41,7 +38,7 @@ module.exports = {
             return this.getDevDependenciesOfLatest(npmPackage);
         } else {
             return new Promise(resolve => {
-                client.getAsync(`http://registry.npmjs.org/${npmPackage.name}`)
+                getJson(`http://registry.npmjs.org/${npmPackage.name}`)
                     .then(data => {
                         resolve(data.versions[npmPackage.version].devDependencies);
                     })
@@ -68,7 +65,7 @@ module.exports = {
     },
 
     getLatestOf: function (name) {
-        return client.getAsync(`http://registry.npmjs.org/${name}/latest`);
+        return getJson(`http://registry.npmjs.org/${name}/latest`);
     },
 
     getLatestVersionOf: function (name) {
@@ -100,4 +97,11 @@ function buildUrl(name, version){
     }
 
     return util.format("https://registry.npmjs.org/%s/-/%s-%s.tgz", name, name, version);
+}
+
+function getJson(url){
+    return new Promise(resolve => {
+        got(url, {json:true, retries: 10})
+        .then(data => resolve(data.body));
+    })
 }
