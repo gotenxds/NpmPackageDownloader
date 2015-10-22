@@ -153,7 +153,7 @@ function addNewPackage(npmPackage, latestSatisfyingVersion) {
 }
 
 function packageContainsSatisfyingVersion(npmPackage, ver) {
-    return semver.maxSatisfying(Array.from(npmPackage.versions), ver);
+    return semver.maxSatisfying(Array.from(npmPackage.versions).filter(semver.valid), ver);
 }
 
 function addAllVersions(name) {
