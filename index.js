@@ -9,7 +9,7 @@ let winston = require('winston'),
     validUrl = require('valid-url');
 
 program
-    .version('0.0.1')
+    .version('0.1.0')
     .option('-p, --packages [packages]', 'A list of space seperated [packages].')
     .option('-d, --dependencies', 'Download dependencies.')
     .option('-e, --devDependencies', 'Download dev dependencies.')
