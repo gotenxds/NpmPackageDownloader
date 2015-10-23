@@ -24,7 +24,7 @@ $ npmDownload -h
     -7, --zipIt                7Zips the downloaded files.
 ```
 
-For example to download the latest versions of `bower`, `grunt` and their dependencies just type:
+For example, to download the latest version of `grunt`, version 1.0.0 of `bower` and their dependencies just type:
 ```
 $ npmDownload -p "bower@1.0.0 grunt" -d -o C:\myStorage
 ```
