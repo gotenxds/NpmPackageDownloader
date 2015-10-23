@@ -35,7 +35,7 @@ winston.add(winston.transports.File, {
 });
 winston.cli();
 winston.info("Welcome to npm package downloader.");
-winston.info("Downloading -> " + program.packages);
+winston.info("Downloading -> " + program.packages.map(p => p.name));
 
 let npmPackages = program.packages;
 let packagesIterator = npmPackages[Symbol.iterator]();
