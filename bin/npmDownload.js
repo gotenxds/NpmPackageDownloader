@@ -9,7 +9,7 @@ let program = require('commander'),
 //noinspection JSCheckFunctionSignatures
 program
     .version('0.1.3')
-    .option('-p, --packages [packages]', 'A list of space seperated [packages].', packages)
+    .option('-p, --packages [packages]', 'A list of space separated [packages].', packages)
     .option('-d, --dependencies', 'Download dependencies.')
     .option('-e, --devDependencies', 'Download dev dependencies.')
     .option('-a, --allVersions', 'Download all versions of each package.')
