@@ -10,7 +10,7 @@ let winston = require('winston'),
     packages = require('./coercions/packagesCoercion');
 
 program
-    .version('0.1.0')
+    .version('0.1.2')
     .option('-p, --packages [packages]', 'A list of space seperated [packages].', packages)
     .option('-d, --dependencies', 'Download dependencies.')
     .option('-e, --devDependencies', 'Download dev dependencies.')
