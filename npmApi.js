@@ -10,7 +10,7 @@ let Promise = require('bluebird'),
     got = require('got');
 
 module.exports = {
-    getVersionsOf: function (name) {
+    getVersionsOf (name) {
         return new Promise(resolve => {
             getJson('http://registry.npmjs.org/' + name)
                 .then(data => {
@@ -19,7 +19,7 @@ module.exports = {
         });
     },
 
-    getDependenciesOf: function (npmPackage) {
+    getDependenciesOf (npmPackage) {
         if (!npmPackage.version) {
             return this.getDependenciesOfLatest(npmPackage);
         } else {
@@ -32,7 +32,7 @@ module.exports = {
         }
     },
 
-    getDevDependenciesOf: function (npmPackage) {
+    getDevDependenciesOf (npmPackage) {
         if (!npmPackage.version) {
             return this.getDevDependenciesOfLatest(npmPackage);
         } else {
@@ -45,7 +45,7 @@ module.exports = {
         }
     },
 
-    getDependenciesOfLatest: function (name) {
+    getDependenciesOfLatest (name) {
         return new Promise(resolve => {
             this.getLatestOf(name)
                 .then(data => {
@@ -53,7 +53,7 @@ module.exports = {
                 })
         });
     },
-    getDevDependenciesOfLatest: function (name) {
+    getDevDependenciesOfLatest (name) {
         return new Promise(resolve => {
             this.getLatestOf(name)
 
@@ -63,7 +63,7 @@ module.exports = {
         });
     },
 
-    getLatestOf: function (name) {
+    getLatestOf (name) {
         return getJson(`http://registry.npmjs.org/${name}/latest`);
     },
 
@@ -74,7 +74,7 @@ module.exports = {
         })
     },
 
-    downloadTarBallOf: function (name, versions, downloadDir) {
+    downloadTarBallOf (name, versions, downloadDir) {
         let download = Promise.promisifyAll(new Download({retries: 10}));
 
         versions.forEach(version => {

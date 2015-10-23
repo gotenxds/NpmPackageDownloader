@@ -3,7 +3,7 @@ let isUri = require('valid-url').isUri,
     semver = require('semver');
 
 module.exports = {
-    getLatestSatisfyingVersion: function (versions, ver) {
+    getLatestSatisfyingVersionn (versions, ver) {
         if (isUri(ver)) {
             return parseUri(ver);
         }
@@ -11,7 +11,7 @@ module.exports = {
         return semver.maxSatisfying(versions, parseVersion(ver));
     },
 
-    packageContainsSatisfyingVersion: function (npmPackage, ver) {
+    packageContainsSatisfyingVersion (npmPackage, ver) {
         return semver.maxSatisfying(Array.from(npmPackage.versions).filter(semver.valid), ver);
     }
 };
