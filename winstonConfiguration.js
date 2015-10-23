@@ -1,9 +1,11 @@
 "use strict";
 let winston = require('winston');
 
-winston.add(winston.transports.File, {
-    level:'Error',
-    filename:`${program.output}\errorLog.log`
-});
+module.exports = function(output){
+    winston.add(winston.transports.File, {
+        level:'Error',
+        filename:`${output}\errorLog.log`
+    });
 
-winston.cli();
+    winston.cli();
+};
