@@ -1,3 +1,4 @@
+"use strict";
 let winston = require('winston');
 
 winston.add(winston.transports.File, {

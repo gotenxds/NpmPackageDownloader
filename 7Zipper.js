@@ -1,3 +1,4 @@
+"use strict";
 let winston = require('winston'),
     Zip = require('node-7z');
 

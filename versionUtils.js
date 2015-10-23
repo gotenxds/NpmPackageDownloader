@@ -1,3 +1,4 @@
+"use strict";
 let isUri = require('valid-url').isUri,
     semver = require('semver');
 
