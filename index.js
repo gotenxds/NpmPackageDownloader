@@ -19,9 +19,6 @@ program
     .option('-7, --zipIt', '7Zips the downloaded files.')
     .parse(process.argv);
 
-winston.cli();
-winston.info("Welcome to npm package downloader.");
-
 if (!program.packages) {
     winston.error("No npmPackage were given!");
     process.exit();
@@ -32,6 +29,12 @@ if (!program.output) {
     process.exit();
 }
 
+winston.add(winston.transports.File, {
+    level:'Error',
+    filename:`${program.output}\errorLog.log`
+});
+winston.cli();
+winston.info("Welcome to npm package downloader.");
 winston.info("Downloading -> " + program.packages);
 
 let npmPackages = program.packages;
