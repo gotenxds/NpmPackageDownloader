@@ -9,5 +9,13 @@ module.exports = {
 
     isScoped(name){
         return name.startsWith('@');
+    },
+
+    unscopeName(scopedName){
+        if (this.isScoped(scopedName)){
+            return scopedName.split('%2f')[1]
+        }
+
+        return scopedName;
     }
 };

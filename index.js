@@ -4,7 +4,8 @@ let winston = require('winston'),
     _ = require('lodash'),
     npm = require('./npmApi.js'),
     Promise = require('bluebird'),
-    versionUtils = require('./versionUtils');
+    versionUtils = require('./versionUtils'),
+    nameUtils = require('./nameUtils');
 
 module.exports = function (npmPackages, opts) {
 
@@ -119,7 +120,7 @@ module.exports = function (npmPackages, opts) {
     }
 
     function addNewPackage(npmPackage, latestSatisfyingVersion) {
-        npmPackages.push({name: npmPackage, versions: new Set([latestSatisfyingVersion]), downloaded: false});
+        npmPackages.push({name: nameUtils.parse(npmPackage), versions: new Set([latestSatisfyingVersion]), downloaded: false});
     }
 
     function downloadTarBall(name) {

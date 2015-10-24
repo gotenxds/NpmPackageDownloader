@@ -7,7 +7,8 @@ let Promise = require('bluebird'),
     util = require('util'),
     winston = require('winston'),
     validUrl = require('valid-url'),
-    got = require('got');
+    got = require('got'),
+    nameUtils = require('./nameUtils');
 
 module.exports = {
     getVersionsOf (name) {
@@ -64,6 +65,13 @@ module.exports = {
     },
 
     getLatestOf (name) {
+        // Npm site is does not allow /latest for scoped packages (WTF)
+        if (nameUtils.isScoped(name)){
+            return new Promise(resolve => {
+                getJson(`http://registry.npmjs.org/${name}`)
+                    .then((data => resolve(data.versions[data['dist-tags'].latest])));
+            })
+        }
         return getJson(`http://registry.npmjs.org/${name}/latest`);
     },
 
@@ -95,7 +103,7 @@ function buildUrl(name, version) {
         return version;
     }
 
-    return util.format("https://registry.npmjs.org/%s/-/%s-%s.tgz", name, name, version);
+    return util.format("https://registry.npmjs.org/%s/-/%s-%s.tgz", name.replace('%2f', '/'), nameUtils.unscopeName(name), version);
 }
 
 function getJson(url) {
