@@ -3,7 +3,7 @@ let isUri = require('valid-url').isUri,
     semver = require('semver');
 
 module.exports = {
-    getLatestSatisfyingVersionn (versions, ver) {
+    getLatestSatisfyingVersion (versions, ver) {
         if (isUri(ver)) {
             return parseUri(ver);
         }

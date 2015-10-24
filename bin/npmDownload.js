@@ -27,6 +27,6 @@ if (!program.output) {
     process.exit();
 }
 
-winstonConfigurator(program.outout);
+winstonConfigurator(program.output);
 winston.info("Welcome to npm package downloader.");
 app(program.packages, program);
