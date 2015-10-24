@@ -3,7 +3,7 @@ let winston = require('winston');
 
 module.exports = function(output){
     winston.add(winston.transports.File, {
-        level:'Error',
+        level:'error',
         filename:`${output}\errorLog.log`
     });
 
