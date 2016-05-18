@@ -50,7 +50,7 @@ module.exports = {
         return new Promise(resolve => {
             this.getLatestOf(name)
                 .then(data => {
-                    resolve(data.dependencies);
+                    resolve(data.dependencies || data.peerDependencies);
                 })
         });
     },
@@ -93,7 +93,7 @@ module.exports = {
 
         return download
             .use(downloadStatus())
-            .dest(downloadDir + '\\' + name)
+            .dest(downloadDir + '\\' + name + "\\-\\")
             .runAsync();
     }
 };
