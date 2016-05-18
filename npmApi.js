@@ -13,7 +13,7 @@ let Promise = require('bluebird'),
 module.exports = {
     getVersionsOf (name) {
         return new Promise(resolve => {
-            getJson('http://registry.npmjs.org/' + name)
+            getJson(buildUrl(name))
                 .then(data => {
                     resolve([name, _.keys(data.versions)]);
                 });
@@ -25,7 +25,7 @@ module.exports = {
             return this.getDependenciesOfLatest(npmPackage);
         } else {
             return new Promise(resolve => {
-                getJson(`http://registry.npmjs.org/${npmPackage.name}`)
+                getJson(buildUrl(npmPackage.name))
                     .then(data => {
                         resolve(data.versions[npmPackage.version].dependencies);
                     })
@@ -38,7 +38,7 @@ module.exports = {
             return this.getDevDependenciesOfLatest(npmPackage);
         } else {
             return new Promise(resolve => {
-                getJson(`http://registry.npmjs.org/${npmPackage.name}`)
+                getJson(buildUrl(npmPackage.name))
                     .then(data => {
                         resolve(data.versions[npmPackage.version].devDependencies);
                     })
@@ -72,7 +72,7 @@ module.exports = {
                     .then((data => resolve(data.versions[data['dist-tags'].latest])));
             })
         }
-        return getJson(`http://registry.npmjs.org/${name}/latest`);
+        return getJson(`${buildUrl(name)}latest`);
     },
 
     getLatestVersionOf: function (name) {
@@ -102,8 +102,11 @@ function buildUrl(name, version) {
     if (validUrl.isUri(version)) {
         return version;
     }
+    else if (version){
+        return util.format("https://registry.npmjs.org/%s/-/%s-%s.tgz", name.replace('%2f', '/'), nameUtils.unscopeName(name), version);
+    }
 
-    return util.format("https://registry.npmjs.org/%s/-/%s-%s.tgz", name.replace('%2f', '/'), nameUtils.unscopeName(name), version);
+    return util.format("https://registry.npmjs.org/%s/", name.replace('/', '%2f'));
 }
 
 function getJson(url) {
