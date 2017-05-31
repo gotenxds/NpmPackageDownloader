@@ -29,11 +29,7 @@ if (!program.output) {
     process.exit();
 }
 
+let npmPackages = program.packagesFromJsonFile ? program.packagesFromJsonFile : program.packages;
 winstonConfigurator(program.output);
 winston.info("Welcome to npm package downloader.");
-
-if (program.packagesFromJsonFile) {
-    program.packages = program.packagesFromJsonFile;
-}
-
-app(program.packages, program);
+app(npmPackages, program);
