@@ -19,7 +19,7 @@ program
     .option('-7, --zipIt', '7Zips the downloaded files.')
     .parse(process.argv);
 
-if (!program.packages && !packagesFromJsonFile) {
+if (!program.packages && !program.packagesFromJsonFile) {
     winston.error("No npmPackage were given!");
     process.exit();
 }
@@ -31,4 +31,9 @@ if (!program.output) {
 
 winstonConfigurator(program.output);
 winston.info("Welcome to npm package downloader.");
+
+if (program.packagesFromJsonFile) {
+    program.packages = program.packagesFromJsonFile;
+}
+
 app(program.packages, program);
