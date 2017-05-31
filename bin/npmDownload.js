@@ -20,7 +20,7 @@ program
     .parse(process.argv);
 
 if (!program.packages && !program.packagesFromJsonFile) {
-    winston.error("No npmPackage were given!");
+    winston.error("No npmPackage of path to jsonFile were given!");
     process.exit();
 }
 
