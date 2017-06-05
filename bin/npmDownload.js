@@ -20,7 +20,7 @@ program
     .parse(process.argv);
 
 if (!program.packages && !program.packagesFromJsonFile) {
-    winston.error("No npmPackage of path to jsonFile were given!");
+    winston.error("No npmPackage or path to jsonFile were given!");
     process.exit();
 }
 
@@ -29,7 +29,14 @@ if (!program.output) {
     process.exit();
 }
 
-let npmPackages = program.packagesFromJsonFile ? program.packagesFromJsonFile : program.packages;
+let npmPackages;
+
+if (program.packages && program.packagesFromJsonFile) {
+    npmPackages = program.packages.concat(program.packagesFromJsonFile);
+} else {
+    npmPackages = program.packagesFromJsonFile ? program.packagesFromJsonFile : program.packages;
+}
+
 winstonConfigurator(program.output);
 winston.info("Welcome to npm package downloader.");
 app(npmPackages, program);
