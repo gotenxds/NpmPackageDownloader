@@ -2,12 +2,12 @@
 let fs = require('fs'),
     packages = require('./packagesCoercion');
 
-module.exports = function (jsonFilePath) {
+module.exports = (jsonFilePath) => {
     const fileContent = JSON.parse(fs.readFileSync(jsonFilePath, "utf8"));
     const dependencies = attachNameAndVersion(fileContent.dependencies);
     const devDependencies = attachNameAndVersion(fileContent.devDependencies);
 
-    return packages(dependencies + devDependencies);
+    return packages(`${dependencies} ${devDependencies}`);
 };
 
 function attachNameAndVersion(jsonObject) {
@@ -23,5 +23,5 @@ function attachNameAndVersion(jsonObject) {
         orderedDependencies += `${dependency}${version} `;
     }
 
-    return orderedDependencies;
+    return orderedDependencies.trimRight();
 }
