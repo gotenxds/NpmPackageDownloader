@@ -9,6 +9,7 @@ let Promise = require('bluebird'),
     validUrl = require('valid-url'),
     got = require('got'),
     nameUtils = require('./nameUtils');
+const path = require('path');
 
 module.exports = {
     getVersionsOf (name) {
@@ -93,7 +94,7 @@ module.exports = {
 
         return download
             .use(downloadStatus())
-            .dest(downloadDir + '\\' + name + "\\-\\")
+            .dest(downloadDir + path.sep + name + path.sep + "-" + path.sep)
             .runAsync();
     }
 };
