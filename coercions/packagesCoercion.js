@@ -1,7 +1,7 @@
 'use strict';
-let nameUtils = require('../nameUtils');
+import nameUtils from "../nameUtils.js";
 
-module.exports = function (packages) {
+export default function (packages) {
     return packages.split(" ").map(npmPackage => {
 
         npmPackage = splitToNameAndVersion(npmPackage);

@@ -1,13 +1,13 @@
 "use strict";
-let winston = require('winston'),
-    zip = require('./7Zipper'),
-    _ = require('lodash'),
-    npm = require('./npmApi.js'),
-    Promise = require('bluebird'),
-    versionUtils = require('./versionUtils'),
-    nameUtils = require('./nameUtils');
+import winston from "winston";
+import zip from "./7Zipper.js";
+import _ from "lodash";
+import npm from "./npmApi.js";
+import Promise from "bluebird";
+import versionUtils from "./versionUtils.js";
+import nameUtils from "./nameUtils.js";
 
-module.exports = function (npmPackages, opts) {
+export default  function (npmPackages, opts) {
 
     winston.info("Downloading -> " + npmPackages.map(p => p.name));
 

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     parse(name){
         if (this.isScoped(name)){
             return name.replace('/', '%2f');
