@@ -1,17 +1,18 @@
 'use strict';
 
-let Promise = require('bluebird'),
-    _ = require('lodash'),
-    Download = require('download'),
-    downloadStatus = require('download-status'),
-    util = require('util'),
-    winston = require('winston'),
-    validUrl = require('valid-url'),
-    got = require('got'),
-    nameUtils = require('./nameUtils');
-const path = require('path');
+import path from "path";
+import nameUtils from "./nameUtils.js";
+import got from "got";
+import validUrl from "valid-url";
+import winston from "winston";
+import util from "util";
+import downloadStatus from "download-status";
+import Download from "download";
+import _ from "lodash";
+import Promise from "bluebird";
+import registryUrl from 'registry-url';
 
-module.exports = {
+export default  {
     getVersionsOf (name) {
         return new Promise(resolve => {
             getJson(buildUrl(name))
@@ -69,7 +70,7 @@ module.exports = {
         // Npm site is does not allow /latest for scoped packages (WTF)
         if (nameUtils.isScoped(name)){
             return new Promise(resolve => {
-                getJson(`http://registry.npmjs.org/${name}`)
+                getJson(`${registryUrl()}${name}`)
                     .then((data => resolve(data.versions[data['dist-tags'].latest])));
             })
         }
@@ -104,10 +105,10 @@ function buildUrl(name, version) {
         return version;
     }
     else if (version){
-        return util.format("https://registry.npmjs.org/%s/-/%s-%s.tgz", name.replace('%2f', '/'), nameUtils.unscopeName(name), version);
+        return util.format(`${registryUrl()}%s/-/%s-%s.tgz`, name.replace('%2f', '/'), nameUtils.unscopeName(name), version);
     }
 
-    return util.format("https://registry.npmjs.org/%s/", name.replace('/', '%2f'));
+    return util.format(`${registryUrl()}%s/`, name.replace('/', '%2f'));
 }
 
 function getJson(url) {

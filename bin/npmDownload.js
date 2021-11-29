@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 "use strict";
-let program = require('commander'),
-    packages = require('../coercions/packagesCoercion'),
-    packagesFromJsonFile = require('../coercions/packagesFromJsonFileCoercion'),
-    app = require("../index.js"),
-    winston = require('winston'),
-    winstonConfigurator = require('../winstonConfiguration');
+import program from "commander";
+import packages from "../coercions/packagesCoercion.js";
+import packagesFromJsonFile from "../coercions/packagesFromJsonFileCoercion.js";
+import app from "../index.js";
+import winston from "winston";
+import winstonConfigurator from "../winstonConfiguration.js";
 
 //noinspection JSCheckFunctionSignatures
 program

@@ -1,7 +1,7 @@
 "use strict";
-let winston = require('winston');
+import winston from "winston";
 
-module.exports = function(output){
+export default  function(output){
     winston.add(winston.transports.File, {
         level:'error',
         filename:`${output}\errorLog.log`

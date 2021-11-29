@@ -1,8 +1,8 @@
 'use strict';
-let fs = require('fs'),
-    packages = require('./packagesCoercion');
+import fs from "fs";
+import packages from "./packagesCoercion.js";
 
-module.exports = (jsonFilePath) => {
+export default  (jsonFilePath) => {
     const fileContent = JSON.parse(fs.readFileSync(jsonFilePath, "utf8"));
     const dependencies = attachNameAndVersion(fileContent.dependencies);
     const devDependencies = attachNameAndVersion(fileContent.devDependencies);

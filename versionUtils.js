@@ -1,8 +1,8 @@
 "use strict";
-let isUri = require('valid-url').isUri,
-    semver = require('semver');
+import {isUri} from "valid-url";
+import semver from "semver";
 
-module.exports = {
+export default  {
     getLatestSatisfyingVersion (versions, ver) {
         if (isUri(ver)) {
             return parseUri(ver);
