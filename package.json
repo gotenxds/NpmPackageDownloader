@@ -28,7 +28,7 @@
     "commander": "^2.9.0",
     "download": "^4.4.3",
     "download-status": "^2.2.1",
-    "got": "^5.0.0",
+    "got": "^11.8.5",
     "lodash": "^4.17.21",
     "node-7z": "^0.3.0",
     "registry-url": "^6.0.0",
