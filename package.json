@@ -26,7 +26,7 @@
   "dependencies": {
     "bluebird": "^2.10.2",
     "commander": "^2.9.0",
-    "download": "^4.4.3",
+    "download": "^8.0.0",
     "download-status": "^2.2.1",
     "got": "^5.0.0",
     "lodash": "^4.17.21",
